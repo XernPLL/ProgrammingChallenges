@@ -4,6 +4,7 @@ import random
 
 #copypasta.txt from https://github.com/louisabraham/copypasta-data
 #sampletext.txt from https://github.com/lachlanpage/Markov-Chain-Sentence-Generator/blob/master/sampletext.txt
+
 licznik = 0
 dict = {}
 with open("copypasta.txt","r") as file:
