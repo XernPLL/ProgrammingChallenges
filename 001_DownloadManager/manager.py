@@ -7,8 +7,6 @@ class MainWindow:
     def __init__(self, master):
         master.title("Download Manager")
 
-        #https://i.ytimg.com/vi/O9dR4KXx8GY/maxresdefault.jpg
-
         desktop = os.path.join(os.path.join(os.environ["USERPROFILE"]),"Desktop")
 
         label1 = tk.Label(master, text="URL:")
