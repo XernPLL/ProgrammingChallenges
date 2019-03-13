@@ -54,6 +54,6 @@ try:
 
 
 except:
-    print(" ".join(creator))
+    pass
 
 print(" ".join(creator))
