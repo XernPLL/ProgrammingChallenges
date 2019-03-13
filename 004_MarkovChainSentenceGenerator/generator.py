@@ -12,7 +12,7 @@ with open("speeches.txt","r",encoding="utf8") as file:
             dict[word1].append(word2)
         else:
             dict[word1] = [word2]
-            
+
 n = int(input("How long sentence do u need?(Bigger than 0)"))
 while(n < 1):
     n = int(input("How long sentence do u need?(Bigger than 0)"))
