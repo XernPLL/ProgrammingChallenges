@@ -1,14 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import style
-from matplotlib import ticker
+import matplotlib.dates as mdates
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import pandas as pd
 import math
 import datetime
-import time
+
 
 data = pd.read_csv("NFLX.csv")
 original = data
@@ -54,14 +53,26 @@ for _ in range(predict_days):
     iksy = np.append(iksy, np.array(now))
 
 
-
 igreki= np.append(np.array(original["Adj Close"]), np.array(predict_done))
 
-plt.plot(iksy[:-predict_days],igreki[:-predict_days])
-plt.plot(iksy[-predict_days:],igreki[-predict_days:])
+
+#plt.plot(iksy[:-predict_days],igreki[:-predict_days])
+#plt.plot(iksy[-predict_days:],igreki[-predict_days:])
+#plt.show()
+print(iksy)
+fig, ax = plt.subplots()
+ax.plot_date(iksy[:-predict_days], igreki[:-predict_days],"-")
+ax.plot_date(iksy[-predict_days:], igreki[-predict_days:],"-")
+
+every_nth = 21
+for n, label in enumerate(ax.xaxis.get_ticklabels()):
+    if n % every_nth != 0:
+        label.set_visible(False)
+plt.xticks(rotation = "vertical")
+
+
+# format the ticks
 plt.show()
-
-
 
 
 print(predict_done, confidence, predict_days)
