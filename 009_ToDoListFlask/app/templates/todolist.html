@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
+{% block styles %}
+{{super()}}
+  <link rel="stylesheet" href="{{url_for('.static', filename='styles.css')}}">
+{% endblock %}
+
 {% block app_content %}
+<div class = "split top">
     <h1>Hi, {{ current_user.username }}!</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
@@ -10,21 +16,61 @@
         </p>
         <p>{{ form.submit() }}</p>
     </form>
-    {% for post in todoposts %}
-    <p>
-    Todo: <b>{{ post.body }}</b>
-    </p>
-    {% endfor %}
 
-     {% for post in inprogressposts %}
-    <p>
-    In progress: <b>{{ post.body }}</b>
-    </p>
-    {% endfor %}
+    </div>
+    <div class="split left1">
+      <div class="centered">
+        <h2>Todo</h2>
+            {% for post in todoposts %}
+                <p>
+                    <b>{{ post.body }}</b>
+                 </p>
+          {% endfor %}
+      </div>
+    </div>
 
-     {% for post in doneposts %}
-    <p>
-    Done: <b>{{ post.body }}</b>
-    </p>
-    {% endfor %}
+    <div class="split left2">
+      <div class="centered">
+         <h2>In progress</h2>
+            {% for post in inprogressposts %}
+                 <p>
+                     <b>{{ post.body }}</b>
+                </p>
+            {% endfor %}
+      </div>
+    </div>
+
+    <div class="split right1">
+      <div class="centered">
+         <h2>Done</h2>
+            {% for post in doneposts %}
+                <p>
+                    <b>{{ post.body }}</b>
+                </p>
+            {% endfor %}
+      </div>
+    </div>
+
+    <div class="split right2">
+      <div class="centered">
+         <h2>Drag here to remove</h2>
+
+      </div>
+    </div>
+
+    <div class="split drag1">
+         <h2>Drag 1</h2>
+
+    </div>
+
+    <div class="split drag2">
+         <h2>Drag 2</h2>
+
+
+    </div>
+
+    <div class="split drag3">
+         <h2>Drag 3</h2>
+
+    </div>
 {% endblock %}
