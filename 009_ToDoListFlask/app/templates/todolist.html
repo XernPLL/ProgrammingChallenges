@@ -3,6 +3,52 @@
 {% block styles %}
 {{super()}}
   <link rel="stylesheet" href="{{url_for('.static', filename='styles.css')}}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block scripts %}
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#sortable1, #sortable2,#sortable3,#sortable4" ).sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+    $( "#sortable1" ).sortable({
+  receive: function( event, ui ) {var get1 =ui.item.text();
+  alert("Otrzymano w TODO: " + get1);}
+});
+    $( "#sortable1" ).sortable({
+  remove: function( event, ui ) {var give1 =ui.item.text();
+  alert("Oddano z TODO: " + give1);}
+});
+    $( "#sortable2" ).sortable({
+  receive: function( event, ui ) {var get2 =ui.item.text();
+  alert("Otrzymano w inprogress: " + get2);}
+});
+    $( "#sortable2" ).sortable({
+  remove: function( event, ui ) {var give2 =ui.item.text();
+  alert("Oddano z inprogress: " + give2);}
+});
+    $( "#sortable3" ).sortable({
+  receive: function( event, ui ) {var get3 =ui.item.text();
+  alert("Otrzymano w Done: " + get3);}
+});
+    $( "#sortable3" ).sortable({
+  remove: function( event, ui ) {var give3 =ui.item.text();
+  alert("Oddano z done: " + give3);}
+});
+    $( "#sortable4" ).sortable({
+  receive: function( event, ui ) {var get4=ui.item.text();
+  alert("Otrzymano w koszu: " + get4);}
+});
+    $( "#sortable4" ).sortable({
+  remove: function( event, ui ) {var give4 =ui.item.text();
+  alert("Przywrocono z kosza " + give4);}
+});
+  } );
+  </script>
 {% endblock %}
 
 {% block app_content %}
@@ -17,60 +63,49 @@
         <p>{{ form.submit() }}</p>
     </form>
 
-    </div>
-    <div class="split left1">
-      <div class="centered">
-        <h2>Todo</h2>
-            {% for post in todoposts %}
-                <p>
-                    <b>{{ post.body }}</b>
-                 </p>
-          {% endfor %}
-      </div>
-    </div>
+</div>
+<div class = "split drag1">
+<p>Todo</p>
+</div>
+<div class = "split drag2">
+<p>In progress</p>
+</div>
+<div class = "split drag3">
+<p>Done</p>
+</div>
+<div class = "split drag4">
+<p>Remove</p>
+</div>
+<div class = "split base">
 
-    <div class="split left2">
-      <div class="centered">
-         <h2>In progress</h2>
-            {% for post in inprogressposts %}
-                 <p>
-                     <b>{{ post.body }}</b>
-                </p>
-            {% endfor %}
-      </div>
-    </div>
+<ul id="sortable1" class="connectedSortable left1">
 
-    <div class="split right1">
-      <div class="centered">
-         <h2>Done</h2>
-            {% for post in doneposts %}
-                <p>
-                    <b>{{ post.body }}</b>
-                </p>
-            {% endfor %}
-      </div>
-    </div>
+    {% for post in todoposts %}
+        <li class="ui-state-default">{{ post.body }}</li>
+    {% endfor %}
+</ul>
 
-    <div class="split right2">
-      <div class="centered">
-         <h2>Drag here to remove</h2>
+<ul id="sortable2" class="connectedSortable left2">
 
-      </div>
-    </div>
+    {% for post in inprogressposts %}
+        <li class="ui-state-default">{{ post.body }}</li>
+    {% endfor %}
+</ul>
 
-    <div class="split drag1">
-         <h2>Drag 1</h2>
+<ul id="sortable3" class="connectedSortable right1">
 
-    </div>
+    {% for post in doneposts %}
+        <li class="ui-state-default">{{ post.body }}</li>
+    {% endfor %}
+</ul>
 
-    <div class="split drag2">
-         <h2>Drag 2</h2>
+<ul id="sortable4" class="connectedSortable right2">
+
+</ul>
 
 
-    </div>
+</div>
 
-    <div class="split drag3">
-         <h2>Drag 3</h2>
 
-    </div>
+
 {% endblock %}
