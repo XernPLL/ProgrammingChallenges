@@ -8,44 +8,66 @@
 
 {% block scripts %}
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{
+  url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
   <script>
   $( function() {
     $( "#sortable1, #sortable2,#sortable3,#sortable4" ).sortable({
       connectWith: ".connectedSortable"
     }).disableSelection();
     $( "#sortable1" ).sortable({
-  receive: function( event, ui ) {var get1 =ui.item.text();
-  alert("Otrzymano w TODO: " + get1);}
+  receive: function( event, ui ) {$.getJSON($SCRIPT_ROOT + '/_addobject', {
+        a: ui.item.text(),
+        type: "Todo"
+      });
+     }
 });
     $( "#sortable1" ).sortable({
-  remove: function( event, ui ) {var give1 =ui.item.text();
-  alert("Oddano z TODO: " + give1);}
+  remove: function( event, ui ) { $.getJSON($SCRIPT_ROOT + '/_removeobject', {
+        a: ui.item.text(),
+        type: "Todo"
+      });
+     }
 });
     $( "#sortable2" ).sortable({
-  receive: function( event, ui ) {var get2 =ui.item.text();
-  alert("Otrzymano w inprogress: " + get2);}
+  receive: function( event, ui ) {$.getJSON($SCRIPT_ROOT + '/_addobject', {
+        a: ui.item.text(),
+        type: "Inprogress"
+      });
+     }
 });
     $( "#sortable2" ).sortable({
-  remove: function( event, ui ) {var give2 =ui.item.text();
-  alert("Oddano z inprogress: " + give2);}
+  remove: function( event, ui ) { $.getJSON($SCRIPT_ROOT + '/_removeobject', {
+        a: ui.item.text(),
+        type: "Inprogress"
+      });
+     }
 });
     $( "#sortable3" ).sortable({
-  receive: function( event, ui ) {var get3 =ui.item.text();
-  alert("Otrzymano w Done: " + get3);}
+  receive: function( event, ui )  {$.getJSON($SCRIPT_ROOT + '/_addobject', {
+        a: ui.item.text(),
+        type: "Done"
+      });
+     }
 });
     $( "#sortable3" ).sortable({
-  remove: function( event, ui ) {var give3 =ui.item.text();
-  alert("Oddano z done: " + give3);}
+  remove: function( event, ui ) { $.getJSON($SCRIPT_ROOT + '/_removeobject', {
+        a: ui.item.text(),
+        type: "Done"
+      });
+     }
 });
     $( "#sortable4" ).sortable({
-  receive: function( event, ui ) {var get4=ui.item.text();
-  alert("Otrzymano w koszu: " + get4);}
+  receive: function( event, ui ) {}
 });
     $( "#sortable4" ).sortable({
-  remove: function( event, ui ) {var give4 =ui.item.text();
-  alert("Przywrocono z kosza " + give4);}
+  remove: function( event, ui ) {}
 });
   } );
   </script>
