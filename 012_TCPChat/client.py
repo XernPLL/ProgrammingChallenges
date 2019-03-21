@@ -2,9 +2,7 @@ import socket
 import sys
 import select
 from threading import Thread
-import keyboard
 import time
-# cd PycharmProjects\ProgrammingChallenges\012_TCPChat
 host = "192.168.43.40"
 port = 8081
 
@@ -25,9 +23,10 @@ print("Socket Connected to " + host)
 class Typing(Thread):
     def run(self):
         while True:
-            if keyboard.is_pressed("s"):
-                message = input()
-                server.send(message.encode())
+            input()
+            message = input("<You>: ")
+            server.send(message.encode())
+            time.sleep(1)
 
 class Getting(Thread):
     def run(self):

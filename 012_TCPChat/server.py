@@ -31,26 +31,31 @@ class Clientthread(Thread):
         self.conn = conn
         self.addr = addr
     def run(self):
-        welcomemessage = "Welcome to the server. Press  s to write"
+        welcomemessage = "Welcome to the server. Press Enter to write"
         self.conn.send(welcomemessage.encode())
 
         while 1:
-            data=self.conn.recv(2048)
-            data = data.decode()
-            if data:
-                print("<"+addr[0]+">"+data)
+            try:
+                data=self.conn.recv(2048)
+                data = data.decode()
+                if data:
+                    print("<"+addr[0]+">"+data)
 
-                datatosend = "<"+addr[0]+">"+data
-                self.broadcast(datatosend,conn)
+                    datatosend = "<"+addr[0]+">"+data
+                    self.broadcast(datatosend,self.conn)
 
-            else:
-                self.remove(conn)
+                else:
+                    self.remove(self.conn)
+            except:
+                conn.close()
+                break
+
 
     def broadcast(self, data, conn):
         for client in connectedlist:
             if client != conn:
                 try:
-                    client.send(data)
+                    client.send(data.encode())
                 except:
                     client.close()
                     self.remove(client)
