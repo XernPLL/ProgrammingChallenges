@@ -1,0 +1,1 @@
+I will be using this library to do this project: https://github.com/tyiannak/pyAudioAnalysis and my old code which i was using to classificate sounds from game "Rust" and sending alerts to fbchat. It will be similar job, I just have to collect some train data
